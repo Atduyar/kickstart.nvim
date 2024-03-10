@@ -557,6 +557,11 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        clangd = {
+          capabilities = {
+            offsetEncoding = { 'utf-16' },
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -696,6 +701,7 @@ require('lazy').setup({
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
           ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -812,6 +818,10 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the

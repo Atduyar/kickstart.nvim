@@ -85,7 +85,7 @@ return {
 
     -- Install golang specific config
     require('dap-go').setup()
-    if dap.adapters.codelldb.executable.command == "" then
+    if dap.adapters.codelldb and dap.adapters.codelldb.executable.command == "" then
       dap.adapters.codelldb.executable.command = "codelldb"
     end
   end,
