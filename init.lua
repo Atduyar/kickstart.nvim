@@ -671,7 +671,7 @@ require('lazy').setup({
       --    you can use this plugin to help you. It even has snippets
       --    for various frameworks/libraries/etc. but you will have to
       --    set up the ones that are useful for you.
-      -- 'rafamadriz/friendly-snippets',
+      'rafamadriz/friendly-snippets',
     },
     config = function()
       -- See `:help cmp`
@@ -767,7 +767,17 @@ require('lazy').setup({
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [']quote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      local spec_treesitter = require('mini.ai').gen_spec.treesitter
+      require('mini.ai').setup {
+        custom_textobjects = {
+          F = spec_treesitter { a = '@function.outer', i = '@function.inner' },
+          o = spec_treesitter {
+            a = { '@conditional.outer', '@loop.outer' },
+            i = { '@conditional.inner', '@loop.inner' },
+          },
+        },
+        n_lines = 500,
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -775,6 +785,9 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      -- Auto-pairing of brackets, quotes, etc.
+      require('mini.pairs').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -822,6 +835,17 @@ require('lazy').setup({
 
   {
     'nvim-treesitter/nvim-treesitter-context',
+    opts = {
+      max_lines = 6,
+      multiline_threshold = 1,
+    },
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
