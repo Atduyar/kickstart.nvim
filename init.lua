@@ -431,6 +431,11 @@ require('lazy').setup({
           },
         },
         -- pickers = {}
+        pickers = {
+          buffers = {
+            sort_lastused = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -857,6 +862,9 @@ require('lazy').setup({
 
       -- Auto-pairing of brackets, quotes, etc.
       require('mini.pairs').setup()
+
+      -- move lines up and down
+      require('mini.move').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
