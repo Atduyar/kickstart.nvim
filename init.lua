@@ -162,6 +162,7 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- File operations
+vim.keymap.set('n', '<leader>ff', '<cmd>Oil<CR>', { desc = 'Open [F]ile picker' })
 vim.keymap.set('n', '<leader>fw', '<cmd>w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<leader>fW', '<cmd>wa<CR>', { desc = 'Save file!' })
 vim.keymap.set('n', '<leader>fq', '<cmd>q<CR>', { desc = 'Exit window' })
