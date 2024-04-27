@@ -266,66 +266,6 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Navigation
-        map('n', '<leader>gn', function()
-          if vim.wo.diff then
-            return ']c'
-          end
-          vim.schedule(function()
-            gs.next_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, desc = 'Next hunk' })
-
-        map('n', '<leader>gN', function()
-          if vim.wo.diff then
-            return '[c'
-          end
-          vim.schedule(function()
-            gs.prev_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, desc = 'Previous hunk' })
-
-        -- Actions
-        map('n', '<leader>gs', gs.stage_hunk, { desc = 'Stage hunk' })
-        map('n', '<leader>gr', gs.reset_hunk, { desc = 'Reset hunk' })
-        map('v', '<leader>gs', function()
-          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'Stage hunk' })
-        map('v', '<leader>gr', function()
-          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'Reset hunk' })
-        map('n', '<leader>gS', gs.stage_buffer, { desc = 'Stage buffer' })
-        map('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
-        map('n', '<leader>gR', gs.reset_buffer, { desc = 'Reset buffer' })
-        map('n', '<leader>gp', gs.preview_hunk, { desc = 'Preview hunk' })
-        map('n', '<leader>gb', gs.toggle_current_line_blame, { desc = 'Toggle blame line' })
-        map('n', '<leader>gd', gs.diffthis, { desc = 'Show changes' })
-        map('n', '<leader>gu', function()
-          gs.diffthis '@{upstream}'
-        end, { desc = 'Show unpushed changes' })
-        map('n', '<leader>gD', gs.toggle_deleted, { desc = 'Toggle deleted' })
-
-        -- Text object
-        map({ 'o', 'x' }, 'gh', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'Select hunk' })
-
-        -- Telescope integrations
-        map('n', '<leader>gg', ':<C-U>Telescope git_status<CR>', { desc = 'Git status' })
-        map('n', '<leader>gc', ':<C-U>Telescope git_bcommits<CR>', { desc = 'Git bcommits' })
-        map('n', '<leader>gC', ':<C-U>Telescope git_commits<CR>', { desc = 'Git commits' })
-        map('n', '<leader>gB', ':<C-U>Telescope git_branches<CR>', { desc = 'Git branches' })
-        map('n', '<leader>gf', ':<C-U>Telescope git_files<CR>', { desc = 'Git files' })
-      end,
     },
   },
 
@@ -355,7 +295,7 @@ require('lazy').setup({
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+        -- ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
@@ -1006,12 +946,10 @@ require('lazy').setup({
   --
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

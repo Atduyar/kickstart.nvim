@@ -52,9 +52,19 @@ return {
         map('n', '<leader>hD', function()
           gitsigns.diffthis '@'
         end, { desc = 'git [D]iff against last commit' })
+        --   map('n', '<leader>gu', function()
+        --     gs.diffthis '@{upstream}'
+        --   end, { desc = 'Show unpushed changes' })
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-        map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
+        map('n', '<leader>htb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
+        map('n', '<leader>htD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
+        --
+        -- Telescope integrations
+        map('n', '<leader>hg', ':<C-U>Telescope git_status<CR>', { desc = 'Git status' })
+        map('n', '<leader>hc', ':<C-U>Telescope git_bcommits<CR>', { desc = 'Git bcommits' })
+        map('n', '<leader>hC', ':<C-U>Telescope git_commits<CR>', { desc = 'Git commits' })
+        map('n', '<leader>hB', ':<C-U>Telescope git_branches<CR>', { desc = 'Git branches' })
+        map('n', '<leader>hf', ':<C-U>Telescope git_files<CR>', { desc = 'Git files' })
       end,
     },
   },
