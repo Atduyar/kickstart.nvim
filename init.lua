@@ -162,6 +162,7 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- File operations
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<leader>ff', '<cmd>Oil<CR>', { desc = 'Open [F]ile picker' })
 vim.keymap.set('n', '<leader>fw', '<cmd>w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<leader>fW', '<cmd>wa<CR>', { desc = 'Save file!' })
@@ -349,7 +350,6 @@ require('lazy').setup({
       -- Document existing key chains
       require('which-key').register {
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
@@ -558,13 +558,13 @@ require('lazy').setup({
           --  the definition of its *type*, not where it was *defined*.
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
-          -- Fuzzy find all the symbols in your current document.
+          -- Fuzzy find all the symbols in your current file.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>fs', require('telescope.builtin').lsp_document_symbols, '[F]ile [S]ymbols')
 
           -- Fuzzy find all the symbols in your current workspace
           --  Similar to document symbols, except searches over your whole project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>cs', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace [S]ymbols')
 
           -- Rename the variable under your cursor
           --  Most Language Servers support renaming across files, etc.
