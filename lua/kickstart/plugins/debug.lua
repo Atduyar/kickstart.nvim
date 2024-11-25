@@ -30,6 +30,7 @@ return {
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
       { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F4>', dap.run_last, desc = 'Debug: Run Last' },
       { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
       { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
       { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
@@ -50,6 +51,10 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
+    dap.defaults.fallback.external_terminal = {
+      command = '/usr/bin/alacritty',
+      args = { '-e' },
+    }
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -103,8 +108,8 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
-    if dap.adapters.codelldb and dap.adapters.codelldb.executable.command == "" then
-      dap.adapters.codelldb.executable.command = "codelldb"
+    if dap.adapters.codelldb and dap.adapters.codelldb.executable.command == '' then
+      dap.adapters.codelldb.executable.command = 'codelldb'
     end
   end,
 }
