@@ -6,6 +6,8 @@ return {
       autoload_mode = config.AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
     }
   end,
+  lazy = false,
+  priority = 50,
   -- opts = {
   --   autoload_mode = config.AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
   -- },

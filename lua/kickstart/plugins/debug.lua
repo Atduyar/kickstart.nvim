@@ -33,11 +33,13 @@ return {
       end,
       desc = 'Debug: Start/Continue',
     },
-    { '<F4>',
+    {
+      '<F4>',
       function()
         require('dap').run_last()
       end,
-	  desc = 'Debug: Run Last' },
+      desc = 'Debug: Run Last',
+    },
     {
       '<F1>',
       function()
@@ -103,7 +105,7 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        -- 'delve',
         'clangd',
         'codelldb',
       },
@@ -149,11 +151,11 @@ return {
 
     -- Install golang specific config
     require('dap-go').setup {
-      delve = {
-        -- On Windows delve must be run attached or it crashes.
-        -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-        detached = vim.fn.has 'win32' == 0,
-      },
+      -- delve = {
+      --   -- On Windows delve must be run attached or it crashes.
+      --   -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+      --   detached = vim.fn.has 'win32' == 0,
+      -- },
     }
     if dap.adapters.codelldb and dap.adapters.codelldb.executable.command == '' then
       dap.adapters.codelldb.executable.command = 'codelldb'

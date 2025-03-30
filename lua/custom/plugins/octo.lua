@@ -7,7 +7,7 @@ return {
   },
   config = function()
     require('octo').setup {
-      default_to_projects_v2 = true,
+      -- default_to_projects_v2 = true,
     }
   end,
 }
