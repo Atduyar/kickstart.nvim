@@ -145,11 +145,16 @@ vim.o.splitbelow = true
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
--- vim.opt.tabstop = 4
--- vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 -- vim.opt.list = true
 -- vim.opt.expandtab = true
 -- vim.opt.listchars = { tab = '▎ ', trail = '·', nbsp = '␣' } -- = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Set Spell
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
+-- vim.opt.spelllang = { "en_us", "tr" }
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -311,7 +316,7 @@ require('lazy').setup({
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.o.timeoutlen
-      delay = 0,
+      delay = 1250,
       icons = {
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
@@ -517,7 +522,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -803,7 +808,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>fb',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
@@ -829,6 +834,10 @@ require('lazy').setup({
       -- end,
       format_on_save = false,
       formatters_by_ft = {
+        markdown = { 'mdsf' },
+        javascript = {"prettier", "prettierd", stop_after_first = true },
+        typescript = {"prettier", "prettierd", stop_after_first = true },
+        json = {"prettier", "prettierd", stop_after_first = true },
         -- lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
@@ -843,6 +852,7 @@ require('lazy').setup({
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
+      'ribru17/blink-cmp-spell',
       -- Snippet Engine
       {
         'L3MON4D3/LuaSnip',
@@ -915,9 +925,27 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'spell' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          spell = {
+            name = 'Spell',
+            module = 'blink-cmp-spell',
+            opts = {
+              enable_in_context = function()
+                local captures = vim.treesitter.get_captures_at_cursor()
+                local in_spell_capture = false
+                for _, capture in ipairs(captures) do
+                  if capture == "spell" then
+                    in_spell_capture = true
+                  elseif capture == "nospell" then
+                    return false
+                  end
+                end
+                return in_spell_capture
+              end,
+            },
+          },
         },
       },
 

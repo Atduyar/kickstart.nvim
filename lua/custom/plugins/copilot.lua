@@ -1,6 +1,6 @@
 return {
   'github/copilot.vim',
-  enabled = false,
+  enabled = true,
   lazy = false,
   init = function()
     vim.g.copilot_no_tab_map = true
